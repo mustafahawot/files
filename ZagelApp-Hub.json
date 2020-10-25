@@ -1,0 +1,1397 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ZagelApp-Hub",
+    "contact": {
+      "name": "Abdulbari",
+      "email": "abdalbareesakka2000@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Messages",
+      "description": "Everything about the messages"
+    },
+    {
+      "name": "Devices",
+      "description": "Everything about the devices"
+    },
+    {
+      "name": "Chats",
+      "description": "Everything about chats"
+    }
+  ],
+  "paths": {
+    "/devices/{deviceId}/messages/text": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Sends a text to specific id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "description": "Receiver's id"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Messages's body",
+                    "example": "test"
+                  },
+                  "preview": {
+                    "type": "boolean",
+                    "description": "Decides whether to show link preview or not (if text contains a link)",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message has been sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Sent message's id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/messages/location": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Sends location to specific id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "description": "Receiver's id"
+                  },
+                  "lat": {
+                    "type": "number",
+                    "description": "The latitude of the location",
+                    "example": 33.7
+                  },
+                  "lng": {
+                    "type": "number",
+                    "description": "The longitude of the location",
+                    "example": 44.8
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Messages's body",
+                    "example": "test loc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message has been sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Sent message's id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/messages/media": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Sends media object to specific id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "description": "Receiver's id"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "File's url",
+                    "example": "http://hadilab.com/em.png"
+                  },
+                  "base64": {
+                    "type": "string",
+                    "description": "File data as base64 string"
+                  },
+                  "filename": {
+                    "type": "string",
+                    "description": "File's name",
+                    "example": "img.jpg"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Messages's body",
+                    "example": "test"
+                  },
+                  "isPtt": {
+                    "type": "boolean",
+                    "description": "Determines whether the message is a voice record or not",
+                    "example": true,
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message has been sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Sent message's id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/messages/contact": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Sends contact to specific id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "description": "Receiver's id"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Contact's name",
+                    "example": "John Doe"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number",
+                    "example": "+10000000000"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message has been sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Sent message's id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/messages": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Retruns messages list",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          },
+          {
+            "name": "chatId",
+            "in": "query",
+            "description": "Chat's id",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          },
+          {
+            "name": "ack",
+            "in": "query",
+            "description": "Message's status",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "READ"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Message's type",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "chat"
+            }
+          },
+          {
+            "name": "dir",
+            "in": "query",
+            "description": "Message's directory",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "in"
+            }
+          },
+          {
+            "name": "begin",
+            "in": "query",
+            "description": "Returns messages after a specific date",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "example": 1600000000
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "Returns messages before a specific date",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "example": 1600184472
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "ack": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "isNewMsg": {
+                        "type": "boolean"
+                      },
+                      "isForwarded": {
+                        "type": "boolean"
+                      },
+                      "isLive": {
+                        "type": "boolean"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "lat": {
+                        "type": "number"
+                      },
+                      "lng": {
+                        "type": "number"
+                      },
+                      "loc": {
+                        "type": "string"
+                      },
+                      "self": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "star": {
+                        "type": "boolean"
+                      },
+                      "subtype": {
+                        "type": "string"
+                      },
+                      "time": {
+                        "type": "number"
+                      },
+                      "to": {
+                        "type": "string"
+                      },
+                      "Type": {
+                        "type": "string"
+                      },
+                      "meta": {
+                        "type": "object",
+                        "properties": {
+                          "isAnimated": {
+                            "type": "boolean"
+                          },
+                          "isGif": {
+                            "type": "boolean"
+                          },
+                          "quotedMsg": {
+                            "type": "object"
+                          },
+                          "qoutedParticipant": {
+                            "type": "object"
+                          },
+                          "uploadhash": {
+                            "type": "string"
+                          },
+                          "mediaKey": {
+                            "type": "string"
+                          },
+                          "mediaKeyTimestamp": {
+                            "type": "number"
+                          },
+                          "mediaData": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/chats/read": {
+      "post": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Sets chat's messages as read",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Chat's id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/chats": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Returns a list of chats based on the filters",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type of chat ,possible values:user,group",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "user"
+            }
+          },
+          {
+            "name": "hasUnread",
+            "in": "query",
+            "description": "Specifies unread chats",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "begin",
+            "in": "query",
+            "description": "Returns chats after a specific date",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "example": 1600000000
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "Returns chats before a specific date",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "example": 1600184472
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string"
+                      },
+                      "isGroup": {
+                        "type": "boolean"
+                      },
+                      "isReadOnly": {
+                        "type": "boolean"
+                      },
+                      "isBradcast": {
+                        "type": "boolean"
+                      },
+                      "time": {
+                        "type": "integer"
+                      },
+                      "chatMeta": {
+                        "type": "object",
+                        "properties": {
+                          "archive": {
+                            "type": "boolean"
+                          },
+                          "formattedTitle": {
+                            "type": "string"
+                          },
+                          "notSpam": {
+                            "type": "boolean",
+                            "description": "Checks if the chat is spam"
+                          },
+                          "pendingMsgs": {
+                            "type": "boolean"
+                          },
+                          "pin": {
+                            "type": "integer"
+                          },
+                          "msgsLength": {
+                            "type": "integer"
+                          },
+                          "unraedCount": {
+                            "type": "integer"
+                          },
+                          "groupMetaData": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "creation": {
+                                "type": "integer"
+                              },
+                              "ownerId": {
+                                "type": "string"
+                              },
+                              "practicipants": {
+                                "type": "array",
+                                "items": {
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "isAdmin": {
+                                      "type": "boolean"
+                                    },
+                                    "isSuperAdmin": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/chats/{chatId}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Returns a chat by it's id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          },
+          {
+            "name": "chatId",
+            "in": "path",
+            "description": "Chat's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "isGroup": {
+                      "type": "boolean"
+                    },
+                    "isReadOnly": {
+                      "type": "boolean"
+                    },
+                    "isBradcast": {
+                      "type": "boolean"
+                    },
+                    "time": {
+                      "type": "integer"
+                    },
+                    "chatMeta": {
+                      "type": "object",
+                      "properties": {
+                        "archive": {
+                          "type": "boolean"
+                        },
+                        "formattedTitle": {
+                          "type": "string"
+                        },
+                        "notSpam": {
+                          "type": "boolean",
+                          "description": "Checks if the chat is spam"
+                        },
+                        "pendingMsgs": {
+                          "type": "boolean"
+                        },
+                        "pin": {
+                          "type": "integer"
+                        },
+                        "msgsLength": {
+                          "type": "integer"
+                        },
+                        "unraedCount": {
+                          "type": "integer"
+                        },
+                        "groupMetaData": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "creation": {
+                              "type": "integer"
+                            },
+                            "ownerId": {
+                              "type": "string"
+                            },
+                            "practicipants": {
+                              "type": "array",
+                              "items": {
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "isAdmin": {
+                                    "type": "boolean"
+                                  },
+                                  "isSuperAdmin": {
+                                    "type": "boolean"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/start": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Starts the Device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device has been started"
+          },
+          "202": {
+            "description": "Starting device"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/shotdown": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Shutdowns the Device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device has been shut downd"
+          },
+          "202": {
+            "description": "Shutting down device"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/restart": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Restarts the Device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device has been restarted"
+          },
+          "202": {
+            "description": "Restarting device"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/ping": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Makes sure if the device are working or not",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device working"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/reset": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Signs out of the Device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed out"
+          },
+          "202": {
+            "description": "Resetting Device"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/screenshot": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Returns a screenshot",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "screenshot has been returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string",
+                      "description": "screenshot's file",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/list": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Retuens devices list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "deviceId": {
+                        "type": "string"
+                      },
+                      "deviceStatus": {
+                        "type": "string",
+                        "enum": [
+                          "Idle",
+                          "starting",
+                          "started",
+                          "stopping",
+                          "stopped"
+                        ]
+                      },
+                      "autoDeploy": {
+                        "type": "boolean"
+                      },
+                      "deviceVersion": {
+                        "type": "string"
+                      },
+                      "uptime": {
+                        "type": "integer"
+                      },
+                      "cleintStatus": {
+                        "type": "string",
+                        "enum": [
+                          "Idle",
+                          "connecting",
+                          "connected",
+                          "requiresAuth",
+                          "authorized",
+                          "closing",
+                          "closed",
+                          "nonOperational",
+                          "conflict",
+                          "timeout"
+                        ]
+                      },
+                      "meta": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/qrcode": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Returns QR code data",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "QR code has been returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/qrimg": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Returns qrcode image",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "QR code image has been returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string",
+                      "description": "Image's file",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/info": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "description": "Returns device's information",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Device's id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "deviceStatus": {
+                      "type": "string",
+                      "enum": [
+                        "Idle",
+                        "starting",
+                        "started",
+                        "stopping",
+                        "stopped"
+                      ]
+                    },
+                    "autoDeploy": {
+                      "type": "boolean"
+                    },
+                    "deviceVersion": {
+                      "type": "string"
+                    },
+                    "uptime": {
+                      "type": "integer"
+                    },
+                    "cleintStatus": {
+                      "type": "string",
+                      "enum": [
+                        "Idle",
+                        "connecting",
+                        "connected",
+                        "requiresAuth",
+                        "authorized",
+                        "closing",
+                        "closed",
+                        "nonOperational",
+                        "conflict",
+                        "timeout"
+                      ]
+                    },
+                    "meta": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "503": {
+            "description": "Device not ready"
+          }
+        }
+      }
+    }
+  }
+}
